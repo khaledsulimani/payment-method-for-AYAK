@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support My Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .donation-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .amount-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .amount-btn {
+            padding: 15px 10px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #333;
+        }
+
+        .amount-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-2px);
+        }
+
+        .custom-amount {
+            margin-bottom: 25px;
+        }
+
+        .custom-amount input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .custom-amount input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .donate-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 18px;
+            background: #0070ba;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .donate-btn:hover {
+            background: #005a94;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 112, 186, 0.3);
+        }
+
+        .paypal-logo {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .info-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .security-note {
+            margin-top: 20px;
+            color: #28a745;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .donation-card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .amount-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="donation-card">
+            <h1>Support My Project ❤️</h1>
+            <p class="subtitle">Your donation helps keep this project alive and growing. Thank you for your support! 🙏</p>
+
+            <!-- Quick Amount Buttons -->
+            <div class="amount-buttons">
+                <button class="amount-btn" onclick="setAmount(10)">10 SAR</button>
+                <button class="amount-btn" onclick="setAmount(25)">25 SAR</button>
+                <button class="amount-btn" onclick="setAmount(50)">50 SAR</button>
+                <button class="amount-btn" onclick="setAmount(100)">100 SAR</button>
+            </div>
+
+            <!-- Custom Amount -->
+            <div class="custom-amount">
+                <input type="number" id="customAmount" placeholder="Or enter custom amount (SAR)" min="1">
+            </div>
+
+            <!-- PayPal Donate Button -->
+            <!-- REPLACE 'yourname' with your actual PayPal.me username -->
+            <a href="https://paypal.me/AYAKproject" id="paypalLink" class="donate-btn" target="_blank">
+                <span class="paypal-logo">💳</span>
+                Donate with PayPal
+            </a>
+
+            <!-- Alternative: Direct Bank Transfer -->
+            <div class="info-text">
+                <strong>Or transfer directly to Al Rajhi Bank:</strong><br>
+                IBAN: SA76 8000 0443 6080 1612 5366<br>
+            </div>
+
+            <div class="security-note">
+                🔒 Secure payment through PayPal
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Replace this with your actual PayPal.me link from your email
+        const PAYPAL_ME_LINK = 'https://paypal.me/AYAKproject';
+
+        function setAmount(amount) {
+            document.getElementById('customAmount').value = amount;
+            updatePayPalLink(amount);
+        }
+
+        function updatePayPalLink(amount) {
+            const link = document.getElementById('paypalLink');
+            if (amount) {
+                // PayPal.me format: paypal.me/username/amount
+                link.href = `${PAYPAL_ME_LINK}/${amount}sar`;
+            } else {
+                link.href = PAYPAL_ME_LINK;
+            }
+        }
+
+        // Update link when custom amount is entered
+        document.getElementById('customAmount').addEventListener('input', function(e) {
+            const amount = e.target.value;
+            if (amount) {
+                updatePayPalLink(amount);
+            } else {
+                document.getElementById('paypalLink').href = PAYPAL_ME_LINK;
+            }
+        });
+    </script>
+</body>
+</html>
